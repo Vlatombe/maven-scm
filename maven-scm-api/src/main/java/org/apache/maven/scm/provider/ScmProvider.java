@@ -40,6 +40,7 @@ import org.apache.maven.scm.command.export.ExportScmResult;
 import org.apache.maven.scm.command.info.InfoScmResult;
 import org.apache.maven.scm.command.list.ListScmResult;
 import org.apache.maven.scm.command.mkdir.MkdirScmResult;
+import org.apache.maven.scm.command.push.PushScmResult;
 import org.apache.maven.scm.command.remoteinfo.RemoteInfoScmResult;
 import org.apache.maven.scm.command.remove.RemoveScmResult;
 import org.apache.maven.scm.command.status.StatusScmResult;
@@ -931,4 +932,14 @@ public interface ScmProvider
      */
     RemoteInfoScmResult remoteInfo( ScmProviderRepository repository, ScmFileSet fileSet, CommandParameters parameters )
         throws ScmException;
+
+    /**
+     * @param repository the source control system
+     * @param fileSet    location of your local copy
+     * @param tagName    the name of the tag to push
+     * @return if the scm implementation doesn't support "push" result will <code></code>
+     * @throws ScmException
+     * @since 1.11
+     */
+    PushScmResult push( ScmRepository repository, ScmFileSet fileSet, String tagName ) throws ScmException;
 }

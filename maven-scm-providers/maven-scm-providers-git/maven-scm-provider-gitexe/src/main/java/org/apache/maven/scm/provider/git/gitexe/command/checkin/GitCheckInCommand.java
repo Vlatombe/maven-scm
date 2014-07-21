@@ -151,17 +151,6 @@ public class GitCheckInCommand
                                              false );
             }
 
-            if( repo.isPushChanges() ) 
-            {
-                Commandline cl = createPushCommandLine( getLogger(), repository, fileSet, version );
-
-                exitCode = GitCommandLineUtils.execute( cl, stdout, stderr, getLogger() );
-                if ( exitCode != 0 )
-                {
-                    return new CheckInScmResult( cl.toString(), "The git-push command failed.", stderr.getOutput(), false );
-                }                
-            }
-
             List<ScmFile> checkedInFiles = new ArrayList<ScmFile>( statusConsumer.getChangedFiles().size() );
 
             // rewrite all detected files to now have status 'checked_in'

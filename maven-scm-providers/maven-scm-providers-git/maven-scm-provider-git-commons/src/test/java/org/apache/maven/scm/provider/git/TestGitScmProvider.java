@@ -100,6 +100,10 @@ public class TestGitScmProvider
     	return null;
     }
 
+    public GitCommand getPushCommand() {
+      return null;
+    }
+
     protected String getRepositoryURL( File path )
     {
         return null;

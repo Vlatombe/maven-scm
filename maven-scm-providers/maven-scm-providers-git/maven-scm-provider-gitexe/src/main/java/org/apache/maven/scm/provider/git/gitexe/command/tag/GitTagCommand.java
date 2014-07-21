@@ -99,18 +99,6 @@ public class GitTagCommand
                 return new TagScmResult( clTag.toString(), "The git-tag command failed.", stderr.getOutput(), false );
             }
 
-            if( repo.isPushChanges() ) 
-            {
-                // and now push the tag to the configured upstream repository
-                Commandline clPush = createPushCommandLine( repository, fileSet, tag );
-    
-                exitCode = GitCommandLineUtils.execute( clPush, stdout, stderr, getLogger() );
-                if ( exitCode != 0 )
-                {
-                    return new TagScmResult( clPush.toString(), "The git-push command failed.", stderr.getOutput(), false );
-                }
-            }
-            
             // plus search for the tagged files
             GitListConsumer listConsumer = new GitListConsumer( getLogger(), fileSet.getBasedir(), ScmFileStatus.TAGGED );
 
@@ -153,17 +141,6 @@ public class GitTagCommand
 
         // Note: this currently assumes you have the tag base checked out too
         cl.createArg().setValue( tag );
-
-        return cl;
-    }
-
-    public static Commandline createPushCommandLine( GitScmProviderRepository repository, ScmFileSet fileSet, String tag )
-        throws ScmException
-    {
-        Commandline cl = GitCommandLineUtils.getBaseGitCommandLine( fileSet.getBasedir(), "push" );
-
-        cl.createArg().setValue( repository.getPushUrl() );
-        cl.createArg().setValue( "refs/tags/" + tag );
 
         return cl;
     }

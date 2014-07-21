@@ -189,4 +189,9 @@ public class JGitScmProvider
     {
         return new JGitRemoteInfoCommand();
     }
+    
+    protected GitCommand getPushCommand()
+    {
+       throw new UnsupportedOperationException( "pushCommand" );
+    }
 }

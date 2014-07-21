@@ -44,6 +44,7 @@ import org.apache.maven.scm.command.info.InfoScmResult;
 import org.apache.maven.scm.command.list.ListScmResult;
 import org.apache.maven.scm.command.login.LoginScmResult;
 import org.apache.maven.scm.command.mkdir.MkdirScmResult;
+import org.apache.maven.scm.command.push.PushScmResult;
 import org.apache.maven.scm.command.remoteinfo.RemoteInfoScmResult;
 import org.apache.maven.scm.command.remove.RemoveScmResult;
 import org.apache.maven.scm.command.status.StatusScmResult;
@@ -1134,4 +1135,24 @@ public abstract class AbstractScmProvider
     {
         throw new UnknownRepositoryStructure();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public PushScmResult push( ScmRepository repository, ScmFileSet fileSet, String tagName )
+        throws ScmException
+    {
+      CommandParameters parameters = new CommandParameters();
+      
+      parameters.setString(CommandParameter.TAG_NAME, tagName);
+      
+      return push(repository.getProviderRepository(), fileSet, parameters);
+    }
+
+    protected PushScmResult push( ScmProviderRepository repository, ScmFileSet fileSet, CommandParameters parameters )
+        throws ScmException
+    {
+        return null;
+    }
+
 }
