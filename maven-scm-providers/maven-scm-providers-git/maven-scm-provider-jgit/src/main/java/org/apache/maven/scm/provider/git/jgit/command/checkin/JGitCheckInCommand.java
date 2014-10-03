@@ -135,18 +135,6 @@ public class JGitCheckInCommand
                 }
             }
 
-            if ( repo.isPushChanges() )
-            {
-                String branch = version != null ? version.getName() : null;
-                if ( StringUtils.isBlank( branch ) )
-                {
-                    branch = git.getRepository().getBranch();
-                }
-                RefSpec refSpec = new RefSpec( Constants.R_HEADS + branch + ":" + Constants.R_HEADS + branch );
-                getLogger().info( "push changes to remote... " + refSpec.toString() );
-                JGitUtils.push( getLogger(), git, (GitScmProviderRepository) repo, refSpec );
-            }
-
             return new CheckInScmResult( "JGit checkin", checkedInFiles );
         }
         catch ( Exception e )

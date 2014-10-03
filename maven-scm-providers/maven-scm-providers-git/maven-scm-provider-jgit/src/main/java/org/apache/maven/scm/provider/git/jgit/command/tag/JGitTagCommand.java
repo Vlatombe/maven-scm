@@ -87,13 +87,6 @@ public class JGitTagCommand
             String tagMessage = scmTagParameters.getMessage();
             Ref tagRef = git.tag().setName( escapedTagName ).setMessage( tagMessage ).setForceUpdate( false ).call();
 
-            if ( repo.isPushChanges() )
-            {
-                getLogger().info( "push tag [" + escapedTagName + "] to remote..." );
-                JGitUtils.push( getLogger(), git, (GitScmProviderRepository) repo, new RefSpec( Constants.R_TAGS
-                    + escapedTagName ) );
-            }
-
             // search for the tagged files
             RevWalk revWalk = new RevWalk( git.getRepository() );
             RevCommit commit = revWalk.parseCommit( tagRef.getObjectId() );

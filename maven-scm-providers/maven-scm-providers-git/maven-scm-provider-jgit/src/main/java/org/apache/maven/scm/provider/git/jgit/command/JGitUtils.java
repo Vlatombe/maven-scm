@@ -157,12 +157,12 @@ public class JGitUtils
         return null;
     }
 
-    public static Iterable<PushResult> push( ScmLogger logger, Git git, GitScmProviderRepository repo, RefSpec refSpec )
+    public static Iterable<PushResult> push( ScmLogger logger, Git git, GitScmProviderRepository repo, RefSpec... refSpecs )
         throws GitAPIException, InvalidRemoteException, TransportException
     {
         CredentialsProvider credentials = JGitUtils.prepareSession( logger, git, repo );
         Iterable<PushResult> pushResultList =
-            git.push().setCredentialsProvider( credentials ).setRefSpecs( refSpec ).call();
+            git.push().setCredentialsProvider( credentials ).setRefSpecs( refSpecs ).call();
         for ( PushResult pushResult : pushResultList )
         {
             Collection<RemoteRefUpdate> ru = pushResult.getRemoteUpdates();
